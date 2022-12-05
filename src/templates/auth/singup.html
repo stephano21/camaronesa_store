@@ -1,0 +1,59 @@
+{% extends './base.html' %}
+{% block title %}Crear cuenta {% endblock%}
+{% block body %}
+
+<body
+    style="background-image: url('https://static4.depositphotos.com/1000931/317/i/600/depositphotos_3173395-stock-photo-shrimp-with-greens.jpg');background-size: 100%;">
+    <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+                <form  id="create_account" method="post">
+                    <div id="message" ></div>
+                    <div class="input-group mb-3">
+                        <h3>Crear cuenta</h3>
+                    </div>
+                    <input type="hidden" name="csrf_token"value="{{csrf_token()}}">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">RUC</span>
+                        <input type="text" class="form-control" placeholder="Usuario" aria-label="RUC" name="id"
+                            aria-describedby="basic-addon1"  required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Nombre</span>
+                        <input type="text" class="form-control" placeholder="Usuario" aria-label="Nombre" name="name"
+                            aria-describedby="basic-addon1"  required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Dirección</span>
+                        <input type="text" class="form-control" placeholder="Dirección" aria-label="RUC" name="address"
+                            aria-describedby="basic-addon1" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Correo</span>
+                        <input type="email" class="form-control" placeholder="Correo" aria-label="RUC" name="email"
+                            aria-describedby="basic-addon1" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Contraseña</span>
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password"
+                            aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Repetir Contraseña</span>
+                        <input type="password" class="form-control" id="verify" placeholder="Repetir Contraseña" name="passwordrepit"
+                            aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <button type="submit" id="submit" class="btn btn-success" disabled>Crear cuenta</button>
+                    </div>
+                    <div class="input-group mb-3">
+                        <a href="/login">Ya tiene una cuenta? Iniciar sesion</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+
+    {% endblock%}

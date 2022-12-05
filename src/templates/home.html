@@ -1,0 +1,68 @@
+{% extends './client.html' %}
+{% block title %}Inicio{% endblock%}
+{% block body %}
+<div class="container">
+    <img src="https://i.pinimg.com/736x/eb/94/4f/eb944f6566c4015fa282ab4733927df0.jpg" class="img-fluid" alt="..."
+        height="10">
+    <h1>Welcome to <b>home , {{ current_user.name}}</h1>
+    <div class="top_products">
+        <h1>Prouctos Top</h1>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://i.pinimg.com/736x/2e/b3/28/2eb3286568187704d25ab49d1acdd32f.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Six-handed_500_playing_cards.jpg/1200px-Six-handed_500_playing_cards.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card tDDSitle</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://hardzone.es/app/uploads-hardzone.es/2021/06/Smart-Cards-Portada.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Cardfgfgdrsewad title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="more_products">
+        <h1>Más Productos</h1>
+    </div>
+</div>
+
+
+
+{% endblock%}
