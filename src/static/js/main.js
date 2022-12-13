@@ -1,11 +1,6 @@
 $(document).ready(function () {
     console.log('running...')
     $('#create_account').submit((e) => {
-        let id = $('#id').val();
-        let name = $('#name').val();
-        let email = $('#email').val();
-        let address = $('#address').val();
-        let password = $('#password').val();
         $.ajax({
             url: '/create_account',
             type: 'POST',
@@ -13,6 +8,7 @@ $(document).ready(function () {
             success: function (response) {
                 let data = JSON.parse(response);
                 render_alert(data);
+                $("#create_account")[0].reset();
             }
         });
         e.preventDefault();

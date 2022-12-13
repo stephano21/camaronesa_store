@@ -24,11 +24,11 @@ class ModelUser():
     def get_by_id(self, mysql, id):
         try:
             cursor=mysql.cursor()
-            sql=f"SELECT ruc, name FROM usuarios WHERE ruc={id}"
+            sql=f"SELECT ruc, name,email, address FROM usuarios WHERE ruc={id}"
             cursor.execute(sql)
             row= cursor.fetchone()
             if row!= None:
-                return User(row[0], row[1],None,None)
+                return User(row[0], row[1],None,None,row[2],row[3])
             else:
                 return None
         except Exception as ex:
