@@ -7,6 +7,7 @@ import json
 
 #Models
 from models.ModelUser import ModelUser
+from models.ModelProduct import ModelProduct
 
 #Entities:
 from models.entities.User import User
@@ -31,6 +32,10 @@ def index():
 def singup():
     return render_template('auth/singup.html')
 
+@app.route('/create_product')
+def create_product():
+    return render_template('admin/add_product.html')
+
 @app.route('/create_account', methods=['POST','GET'])
 def create_account():
     if request.method=='POST':
@@ -41,6 +46,14 @@ def create_account():
 
     else:
         return render_template('xd.html')
+
+
+@app.route('/loader_products', methods=['GET'])
+def loader_products():
+    if request.method=='GET':
+        response=ModelProduct.load_products(mysql)
+        print(response)
+        return json.dumps(response)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
