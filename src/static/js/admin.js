@@ -1,4 +1,4 @@
-import { card, } from './partials.js';
+import { create_model, } from './partials.js';
 "use strict";
 $(document).ready(function () {
     $(window).on('load', function () {
@@ -25,10 +25,21 @@ $(document).ready(function () {
         }
     }
     function previe_image() {
-        $("#inputGroupFileAddon04").click(function () {
-            alert("Handler for .click() called.");
+        $("#inputGroupFileAddon04").click(function (e) {
             let img = $("#inputGroupFile04").prop("files")[0];
-            console.log(img);
+            console.log($this);
+            if (img != undefined) {
+                let url = URL.createObjectURL(img);
+                let render = create_model(url);
+                $('#img_modal').html(render);
+                console.log(url);
+            }
+            if(img==undefined){
+                let render = "";
+                $('#img_modal').html(render);
+            }
+            e.prventDefault();
+
             let folder = 'products';
             /*$.ajax({
                 url: "xd.php",

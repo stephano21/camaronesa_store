@@ -1,45 +1,58 @@
 {% extends './base.html' %}
 {% block title %}Iniciar Sesión{% endblock%}
 {% block body %}
-<body style="background-image: url('https://static4.depositphotos.com/1000931/317/i/600/depositphotos_3173395-stock-photo-shrimp-with-greens.jpg');background-size: 100%;">
+
+<body
+    style="background-image: url('https://static4.depositphotos.com/1000931/317/i/600/depositphotos_3173395-stock-photo-shrimp-with-greens.jpg');background-size: 100%;">
     <div class="d-flex align-items-center justify-content-center vh-100">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <form action="/login" id="login" method="post">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for messsage in messages %}
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>{{messsage}}</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith%}
-                <input type="hidden" name="csrf_token"value="{{csrf_token()}}"> 
-                <div class="input-group mb-3">
-                    <h3>Inicion de  sesión</h3>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Usuario</span>
-                    <input type="text" class="form-control" placeholder="Usuario" aria-label="Username" name="username"
-                        aria-describedby="basic-addon1" id="validationCustom03" required>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">Contraseña</span>
-                    <input type="password" class="form-control" placeholder="Contraseña" name="password"
-                        aria-label="Username" aria-describedby="basic-addon1" required>
-                </div>
-                <div class="input-group mb-3">
-                    <button type="submit" id="submit" class="btn btn-primary">Iniciar</button>
-                </div>
-                <div class="input-group mb-3">
-                    <a href="/singup">No tiene una cuenta? Crear cuenta</a>
-                </div>
-            </form>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <form action="/login" id="login" method="post">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    {% for messsage in messages %}
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>{{messsage}}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith%}
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <div class="input-group mb-3">
+                        <h3>Inicion de sesión</h3>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                            </svg>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Usuario" aria-label="Username"
+                            name="username" aria-describedby="basic-addon1" id="validationCustom03" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-lock-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                            </svg>
+                        </span>
+                        <input type="password" class="form-control" placeholder="Contraseña" name="password"
+                            aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <button type="submit" id="submit" class="btn btn-primary btn-block">Iniciar</button>
+                    </div>
+                    <div class="input-group mb-3">
+                        <a href="/singup">No tiene una cuenta? Crear cuenta</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </body>
 
 

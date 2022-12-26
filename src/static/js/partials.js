@@ -35,5 +35,13 @@ export function card(list){
     
     
 };
+export function create_model(img){
+    let template=`
+    <div class="d-flex align-items-center justify-content-center">
+        <img class="img-fluid" src="${img}" alt="" >
+    </div>           
+    `;
+    return template;
+}
 
 
