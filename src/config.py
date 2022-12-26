@@ -1,13 +1,9 @@
+from decouple import config
 class Config:
-    SECRET_KEY = 'mysecretkey'
+    SECRET_KEY = config("SECRET_KEY")
     
 class DevelopmentConfig(Config):
-    DEBUG = False
-    MYSQL_HOST='localhost'
-    MYSQL_USER='root'
-    MYSQL_PASSWORD=''
-    MYSQL_DB='camaronesa_store'
-    RUN = 3000
+    DEBUG = True
 
 config={
     'development': DevelopmentConfig

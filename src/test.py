@@ -1,4 +1,6 @@
-import os
-print(os.getcwd())
-os.makedirs('img/products/', exist_ok=True)
-print(os.path.exists('src/img'))
+from decouple import config
+print(config("MYSQL_USER"))
+print(config("MYSQL_USER"))
+print(config("MYSQL_PASSWORD"))
+print(config("MYSQL_DB"))
+print(config("MYSQL_PORT"))

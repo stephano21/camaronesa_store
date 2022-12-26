@@ -1,3 +1,5 @@
 __pycache__/
 admin/
 img/
+.env
+test.py
