@@ -3,7 +3,7 @@ class Config:
     SECRET_KEY = config("SECRET_KEY")
     
 class DevelopmentConfig(Config):
-    DEBUG = True
+    DEBUG = config("DEBUG")
 
 config={
     'development': DevelopmentConfig
