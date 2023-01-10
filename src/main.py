@@ -1,18 +1,19 @@
-import os
-from random import sample
+
+from decouple import config
+from test import save_images,save_dataproducts
 from flask import Flask, render_template, request, redirect, url_for,flash
 from config import config
 from conn import get_conection
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, login_user, logout_user, login_required
 import json
-from werkzeug.utils import secure_filename
 #Models
 from models.ModelUser import ModelUser
 from models.ModelProduct import ModelProduct
 
 #Entities:
 from models.entities.User import User
+from models.entities.Products import Products
 
 
 app= Flask(__name__)
@@ -34,31 +35,19 @@ def index():
 def singup():
     return render_template('auth/singup.html')
 
-#generate randoms filenames
-def generate_name():
-    random_string ="0123456789abcdefghijklnopqrstuvwxyz_"
-    size = 20
-    secuence = random_string.upper()
-    result = sample(secuence,size)
-    random_string ="".join(result,)
-    return random_string
 
 @app.route('/create_product', methods=['GET','POST'])
 @login_required
 def create_product():
     if request.method=='POST':
-        file = request.files['img']
-        print(file)
-        basepath  = os.path.dirname(__file__)
-        print(basepath)
-        filename =  secure_filename(file.filename)
-        extension = os.path.splitext(file.filename)[1]
-        newNameFile = generate_name()+extension
-        print(newNameFile)
-        uploadPath = os.path.join(basepath,'img/products',newNameFile)
-        file.save(uploadPath)
-        print(uploadPath)
-        flash("Archivo guardado exitosamente")
+        if request.files['img']:
+            product_data = Products('',request.form['name'],request.form['detail'],request.form['price'],0,0,request.files['img'])
+            new_product= ModelProduct.new_product(product_data,mysql)
+            print(new_product)
+            flash("Archivo guardado exitosamente")
+            return render_template('admin/add_product.html')
+        else:
+            flash('')
         return render_template('admin/add_product.html')
     else:
         return render_template('admin/add_product.html')
@@ -74,11 +63,21 @@ def create_account():
     else:
         return render_template('xd.html')
 
-
+#LOaders
 @app.route('/loader_products', methods=['GET'])
 def loader_products():
     if request.method=='GET':
         response=ModelProduct.load_products(mysql)
+        print(response)
+        return json.dumps(response)
+    
+
+
+@app.route('/loader_item', methods=['POST'])
+def loader_item():
+    if request.method=='POST':
+        id= request.form['id']
+        response=ModelProduct.load_unique_product(mysql,id)
         print(response)
         return json.dumps(response)
 
@@ -102,6 +101,13 @@ def login():
             return render_template('auth/login.html')
     else:
         return render_template('auth/login.html')
+@app.route("/view_product", methods=['GET','POST'])
+@login_required
+def view_products():
+    if request.method=='GET':
+        return render_template('product_item.html')
+
+
 @app.route('/porfile', methods=['GET','POST'])
 @login_required
 def porfile():
@@ -128,4 +134,4 @@ if __name__=="__main__":
     csrf.init_app(app)
     app.register_error_handler(401,status_401)
     app.register_error_handler(404,status_404)
-    app.run(host='0.0.0.0',port=3000)
+    app.run(host='0.0.0.0',port=5000)

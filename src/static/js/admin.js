@@ -1,4 +1,4 @@
-import { create_model, } from './partials.js';
+import { create_model, validar} from './partials.js';
 "use strict";
 $(document).ready(function () {
     $(window).on('load', function () {
@@ -24,10 +24,38 @@ $(document).ready(function () {
             document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
         }
     }
+    $('#add_product').submit((e) => {
+        validar();
+        /* console.log($('#add_product').serialize());
+        let img =$("#inputGroupFile04").prop("files")[0]
+        let name =$("#name").val();
+        let detail =$("#detail").val();
+        let price =$("#price").val();
+        let json = {
+            name:name,
+            detail:detail,
+            price:price,
+            photho:img,
+        }
+        console.log(json)
+        $.ajax({
+            url: '/create_product',
+            type: 'POST',
+            data: json,
+            success: function (response) {
+                console.log(response)
+            }
+        }); */
+        e.preventDefault();
+    });
+    $("#inputGroupFile04").change(function(){
+        let img = $("#inputGroupFile04").prop("files")[0];
+        console.log('change........')
+        validar();
+    });
     function previe_image() {
-        $("#inputGroupFileAddon04").click(function (e) {
+        $("#inputGroupFileAddon04").click(function () {
             let img = $("#inputGroupFile04").prop("files")[0];
-            console.log($this);
             if (img != undefined) {
                 let url = URL.createObjectURL(img);
                 let render = create_model(url);
@@ -38,17 +66,6 @@ $(document).ready(function () {
                 let render = "";
                 $('#img_modal').html(render);
             }
-            e.prventDefault();
-
-            let folder = 'products';
-            /*$.ajax({
-                url: "xd.php",
-                type: 'POST',
-                data: { img, folder },
-                success: function (response) {
-                    console.log(response);
-                }
-            });*/
         });
 
         /*$.ajax({

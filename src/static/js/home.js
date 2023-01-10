@@ -1,4 +1,5 @@
-import {card,} from './partials.js';
+import {card,carrousel,card_simple,validar} from './partials.js';
+//import {carrousel} from './custom.js';
 "use strict";
 $(document).ready(function () {
     $(window).on('load', function () {
@@ -11,7 +12,8 @@ $(document).ready(function () {
             }, 500);
         }
         hidePreloader();
-        load_products()
+        load_predict_products();
+        load_products();
         console.log("loaded..")
     });
     function deleteAllCookies() {
@@ -24,16 +26,30 @@ $(document).ready(function () {
             document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
         }
     }
-    function load_products(){
+    function load_predict_products(){
         $.ajax({
             url:'/loader_products',
             type: 'GET',
             success: function(response){
                 let item = JSON.parse(response);
                 let render = card(item);
-                $('#items').html(render);
+                $('#place_carrousel').html(render);
+                carrousel()
+            }
+        });
+    }
+    function load_products(){
+        $.ajax({
+            url:'/loader_products',
+            type: 'GET',
+            success: function(response){
+                let item = JSON.parse(response);
+                let render = card_simple(item);
+                $('#simple_product_list').html(render);
             }
         });
     }
 });
+/*
 
+*/

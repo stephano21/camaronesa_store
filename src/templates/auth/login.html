@@ -1,7 +1,9 @@
 {% extends './base.html' %}
 {% block title %}Iniciar Sesión{% endblock%}
 {% block body %}
-
+{% if current_user.is_authenticated %}
+    <script>window.location='/home'</script>
+{% endif %}
 <body
     style="background-image: url('https://static4.depositphotos.com/1000931/317/i/600/depositphotos_3173395-stock-photo-shrimp-with-greens.jpg');background-size: 100%;">
     <div class="d-flex align-items-center justify-content-center vh-100">
