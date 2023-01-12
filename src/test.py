@@ -15,7 +15,7 @@ def save_images(file):
     filename =  secure_filename(file.filename)
     extension = os.path.splitext(file.filename)[1]
     newNameFile = generate_name()+extension
-    uploadPath = os.path.join(basepath,'img/products',newNameFile)
+    uploadPath = os.path.join(basepath,'static/img/products',newNameFile)
     file.save(uploadPath)
     return newNameFile
 

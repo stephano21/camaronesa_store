@@ -1,11 +1,11 @@
 export function card(list) {
     let template = ''
-    let flag = 0;
+    let flag = 1;
     list.forEach(item => {
         template += `
             <div class="pelicula">
                 <div class="card col-sm-6" style="width: 13rem;">
-                    <img src="https://ekosnegocios.com/image/posts/February2022/85zKvSx2IGJGelvzHWwH.jpg">
+                    <img src="https://5sbstephanochang.000webhostapp.com/img/${flag}.jpg">
                     <div class="card-body">
                         <h5 class="card-title">$ ${item.price}</h5>
                         <p class="card-text">${item.name}</p>
@@ -14,6 +14,7 @@ export function card(list) {
                 </div>
             </div>
             `;
+        flag+=1;
     });
     return template
 
@@ -21,11 +22,11 @@ export function card(list) {
 };
 export function card_simple(list) {
     let template = ''
-    let flag = 0;
+    let flag = 1;
     list.forEach(item => {
         template += `
         <div class="card col-sm-6" style="width: 13rem;margin: 7px 7px;">
-            <img src="https://ekosnegocios.com/image/posts/February2022/85zKvSx2IGJGelvzHWwH.jpg">
+          <img src="https://5sbstephanochang.000webhostapp.com/img/${flag}.jpg">
             <div class="card-body">
                 <h5 class="card-title">$ ${item.price}</h5>
                 <p class="card-text">${item.name}</p>
@@ -33,6 +34,7 @@ export function card_simple(list) {
             </div>
         </div>
         `;
+      flag+=1;
     });
     return template
 

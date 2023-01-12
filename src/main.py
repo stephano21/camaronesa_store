@@ -1,4 +1,5 @@
 
+import os
 from decouple import config
 from test import save_images,save_dataproducts
 from flask import Flask, render_template, request, redirect, url_for,flash
@@ -21,6 +22,13 @@ csrf=CSRFProtect()
 mysql= get_conection()
 login_manager=LoginManager(app)
 
+
+#show image
+
+IMG_FOLDER = os.path.join('static','img')
+print(IMG_FOLDER)
+
+app.config['UPLOAD_FOLDER'] = IMG_FOLDER
 #routes and functions
 @login_manager.user_loader
 def load_user(id):
@@ -117,7 +125,16 @@ def porfile():
 @app.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    portada = os.path.join(app.config['UPLOAD_FOLDER'], 'xd.jpg')
+
+    return render_template('home.html',user_image=portada)
+
+
+@app.route('/account')
+@login_required
+def account():
+
+    return render_template('account.html')
 
 @app.route("/logout")
 def logout():
