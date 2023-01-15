@@ -23,7 +23,6 @@ class ModelProduct():
             data=[]
             cursor=mysql.cursor()
             sql=f"SELECT * FROM productos"
-            print('\n',sql,'\n')
             cursor.execute(sql)
             row= cursor.fetchall()
             if row !=None:

@@ -94,14 +94,15 @@
 	width: 100%;
 	vertical-align: top;
 }
+/* STARTS*/
 #form {
-	width: 250px;
-	margin: 0 auto;
-	height: 100px;
+	width: 100px;
+	margin: 0 0;
+	height: 50px;
   }
   
   #form p {
-	text-align: center;
+	text-align: l;
   }
   
   #form label {

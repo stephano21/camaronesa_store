@@ -9,7 +9,7 @@ export function card(list) {
                     <div class="card-body">
                         <h5 class="card-title">$ ${item.price}</h5>
                         <p class="card-text">${item.name}</p>
-                        <a href="/view_product?data=${item.id}" class="btn btn-primary">Go somewhere</a>
+                        <a href="/product/view/${item.id}" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>

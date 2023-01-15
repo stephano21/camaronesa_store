@@ -3,3 +3,4 @@ admin/
 img/
 .env
 test.py
+/flask_session

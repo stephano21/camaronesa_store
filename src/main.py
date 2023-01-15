@@ -2,8 +2,9 @@
 import os
 from decouple import config
 from test import save_images,save_dataproducts
-from flask import Flask, render_template, request, redirect, url_for,flash
+from flask import Flask, render_template, request,session, redirect, url_for,flash
 from config import config
+from flask_session import Session
 from conn import get_conection
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, login_user, logout_user, login_required
@@ -21,6 +22,8 @@ app= Flask(__name__)
 csrf=CSRFProtect()
 mysql= get_conection()
 login_manager=LoginManager(app)
+
+
 
 
 #show image
@@ -43,6 +46,26 @@ def index():
 def singup():
     return render_template('auth/singup.html')
 
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if request.method=='POST':
+        user = User(request.form['username'],0, request.form['password'],"client",0)
+        logged_user = ModelUser.login(mysql,user,"client")
+        if logged_user !=  None and logged_user!= False: #allready user and match rol
+            if logged_user.password:
+                login_user(logged_user,"model user")
+                return redirect(url_for("home"))
+            else:
+                flash("Contraseña o usuario incorrecto")
+                return render_template("auth/login.html")
+        elif logged_user==False:
+            flash("No permisison")    
+            return render_template('auth/login.html')
+        else:
+            flash("Usuario no encontrado")    
+            return render_template('auth/login.html')
+    else:
+        return render_template('auth/login.html')
 
 @app.route('/create_product', methods=['GET','POST'])
 @login_required
@@ -71,12 +94,11 @@ def create_account():
     else:
         return render_template('xd.html')
 
-#LOaders
+#Loaders
 @app.route('/loader_products', methods=['GET'])
 def loader_products():
     if request.method=='GET':
         response=ModelProduct.load_products(mysql)
-        print(response)
         return json.dumps(response)
     
 
@@ -89,34 +111,27 @@ def loader_item():
         print(response)
         return json.dumps(response)
 
-@app.route('/login', methods=['GET','POST'])
-def login():
-    if request.method=='POST':
-        user = User(request.form['username'],0, request.form['password'],"client",0)
-        logged_user = ModelUser.login(mysql,user,"client")
-        if logged_user !=  None and logged_user!= False: #allready user and match rol
-            if logged_user.password:
-                login_user(logged_user,"model user")
-                return redirect(url_for("home"))
-            else:
-                flash("Contraseña o usuario incorrecto")
-                return render_template("auth/login.html")
-        elif logged_user==False:
-            flash("No permisison")    
-            return render_template('auth/login.html')
-        else:
-            flash("Usuario no encontrado")    
-            return render_template('auth/login.html')
-    else:
-        return render_template('auth/login.html')
-@app.route("/view_product", methods=['GET','POST'])
+
+@app.route("/product/view/<item>", methods=['GET','POST'])
 @login_required
-def view_products():
+def view_products(item):
     if request.method=='GET':
-        return render_template('product_item.html')
+        print(item)
+        response=ModelProduct.load_unique_product(mysql,item)
+        print(response)
+        product=json.dumps(response)
+        product= json.loads(product)
+        
+        return render_template('product_item.html',data=product)
+
+@app.route('/product/car', methods=['GET','POST'])
+@login_required
+def car():
+    if request.method=='GET':
+        return render_template('car.html')
 
 
-@app.route('/porfile', methods=['GET','POST'])
+@app.route('/account/porfile', methods=['GET','POST'])
 @login_required
 def porfile():
     if request.method=='GET':
@@ -125,8 +140,9 @@ def porfile():
 @app.route('/home')
 @login_required
 def home():
+    if 'cart' not in session:
+        session['cart'] = []
     portada = os.path.join(app.config['UPLOAD_FOLDER'], 'xd.jpg')
-
     return render_template('home.html',user_image=portada)
 
 
@@ -148,6 +164,7 @@ def status_404(e):
     return "<h1>Page not found</h1>"
 if __name__=="__main__":
     app.config.from_object(config['development'])
+    Session(app)
     csrf.init_app(app)
     app.register_error_handler(401,status_401)
     app.register_error_handler(404,status_404)
